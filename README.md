@@ -1,10 +1,11 @@
-WhoCall - 谁CALL我
+WhoCall - 谁CALL我 ![](_images/AppIcon-60.png?raw=true)
 =======
 
 iOS来电信息语音提醒，无需越狱。（需要iOS 7.0及以上版本。)
 
 骚扰电话预警、来电归属地提醒、联系人姓名播报，这些~~有中国特色~~人性化的电话功能，iOS上也应该有！
 
+![](_images/screenshot-1.png?raw=true)
 
 功能介绍
 -------
