@@ -62,6 +62,9 @@
             ABRecordRef person = CFArrayGetValueAtIndex(allPeople, idxPeople);
             
             NSString *personName = (__bridge_transfer NSString *)(ABRecordCopyCompositeName(person));
+            if (!personName) {
+                continue;
+            }
             
             ABMultiValueRef phoneNumbers = ABRecordCopyValue(person, kABPersonPhoneProperty);
             
