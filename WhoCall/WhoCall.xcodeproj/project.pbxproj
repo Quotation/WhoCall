@@ -15,10 +15,7 @@
 		461320881838A6A7006634C7 /* WCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 461320801838A6A7006634C7 /* WCAppDelegate.m */; };
 		4613208B1838A788006634C7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 461320841838A6A7006634C7 /* InfoPlist.strings */; };
 		466216741838B6A8008DC8FA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 466216731838B6A8008DC8FA /* AVFoundation.framework */; };
-		466216761838B6AF008DC8FA /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 466216751838B6AF008DC8FA /* AudioToolbox.framework */; };
 		466216781838B6B7008DC8FA /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 466216771838B6B7008DC8FA /* CoreTelephony.framework */; };
-		4662167F1838B729008DC8FA /* MMPDeepSleepPreventer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4662167C1838B729008DC8FA /* MMPDeepSleepPreventer.m */; };
-		466216801838B729008DC8FA /* MMPSilence.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4662167D1838B729008DC8FA /* MMPSilence.wav */; };
 		466216841838B767008DC8FA /* WCSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 466216821838B767008DC8FA /* WCSettingViewController.m */; };
 		466216871838B8F2008DC8FA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 466216861838B8F2008DC8FA /* Localizable.strings */; };
 		466216891838DEFC008DC8FA /* WCSetting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 466216881838DEFC008DC8FA /* WCSetting.storyboard */; };
@@ -64,11 +61,7 @@
 		461320831838A6A7006634C7 /* WhoCall-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WhoCall-Info.plist"; sourceTree = "<group>"; };
 		461320851838A6A7006634C7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		466216731838B6A8008DC8FA /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		466216751838B6AF008DC8FA /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		466216771838B6B7008DC8FA /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		4662167B1838B729008DC8FA /* MMPDeepSleepPreventer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMPDeepSleepPreventer.h; sourceTree = "<group>"; };
-		4662167C1838B729008DC8FA /* MMPDeepSleepPreventer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMPDeepSleepPreventer.m; sourceTree = "<group>"; };
-		4662167D1838B729008DC8FA /* MMPSilence.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = MMPSilence.wav; sourceTree = "<group>"; };
 		466216811838B767008DC8FA /* WCSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCSettingViewController.h; sourceTree = "<group>"; };
 		466216821838B767008DC8FA /* WCSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCSettingViewController.m; sourceTree = "<group>"; };
 		466216861838B8F2008DC8FA /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
@@ -125,7 +118,6 @@
 				4662170C183C521F008DC8FA /* libsqlite3.dylib in Frameworks */,
 				466216EE183BA363008DC8FA /* AddressBook.framework in Frameworks */,
 				466216781838B6B7008DC8FA /* CoreTelephony.framework in Frameworks */,
-				466216761838B6AF008DC8FA /* AudioToolbox.framework in Frameworks */,
 				466216741838B6A8008DC8FA /* AVFoundation.framework in Frameworks */,
 				4613204D1838A357006634C7 /* CoreGraphics.framework in Frameworks */,
 				4613204F1838A357006634C7 /* UIKit.framework in Frameworks */,
@@ -162,7 +154,6 @@
 				4662170B183C521F008DC8FA /* libsqlite3.dylib */,
 				466216ED183BA363008DC8FA /* AddressBook.framework */,
 				466216771838B6B7008DC8FA /* CoreTelephony.framework */,
-				466216751838B6AF008DC8FA /* AudioToolbox.framework */,
 				466216731838B6A8008DC8FA /* AVFoundation.framework */,
 				4613204A1838A357006634C7 /* Foundation.framework */,
 				4613204C1838A357006634C7 /* CoreGraphics.framework */,
@@ -220,19 +211,8 @@
 			children = (
 				466216F9183C4AFD008DC8FA /* FMDB */,
 				466216EF183BB2DC008DC8FA /* MKAdditions */,
-				4662167A1838B729008DC8FA /* MMPDeepSleepPreventer */,
 			);
 			path = 3rd;
-			sourceTree = "<group>";
-		};
-		4662167A1838B729008DC8FA /* MMPDeepSleepPreventer */ = {
-			isa = PBXGroup;
-			children = (
-				4662167B1838B729008DC8FA /* MMPDeepSleepPreventer.h */,
-				4662167C1838B729008DC8FA /* MMPDeepSleepPreventer.m */,
-				4662167D1838B729008DC8FA /* MMPSilence.wav */,
-			);
-			path = MMPDeepSleepPreventer;
 			sourceTree = "<group>";
 		};
 		4662167E1838B729008DC8FA /* Controllers */ = {
@@ -324,10 +304,13 @@
 				ORGANIZATIONNAME = "Wang Xiaolei";
 				TargetAttributes = {
 					461320461838A357006634C7 = {
-						DevelopmentTeam = CZ2PUS96XT;
+						DevelopmentTeam = RR5AV4GY8C;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
+							};
+							com.apple.InterAppAudio = {
+								enabled = 0;
 							};
 						};
 					};
@@ -367,7 +350,6 @@
 				466216901838FF2A008DC8FA /* icon_contact.png in Resources */,
 				466216F5183C47B6008DC8FA /* telocation.db in Resources */,
 				461320861838A6A7006634C7 /* AppImages.xcassets in Resources */,
-				466216801838B729008DC8FA /* MMPSilence.wav in Resources */,
 				466216951838FF35008DC8FA /* icon_spam@2x.png in Resources */,
 				466216991839014A008DC8FA /* icon_nobody@2x.png in Resources */,
 			);
@@ -391,7 +373,6 @@
 				466216E0183A6319008DC8FA /* WCCall.m in Sources */,
 				461320871838A6A7006634C7 /* main.m in Sources */,
 				466216EC183BA2D2008DC8FA /* WCUtil.m in Sources */,
-				4662167F1838B729008DC8FA /* MMPDeepSleepPreventer.m in Sources */,
 				466216E6183BA292008DC8FA /* WCAddressBook.m in Sources */,
 				466216841838B767008DC8FA /* WCSettingViewController.m in Sources */,
 				46621707183C4AFD008DC8FA /* FMDatabasePool.m in Sources */,
@@ -493,11 +474,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Src/WhoCall-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Support/WhoCall-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -508,11 +491,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Src/WhoCall-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Support/WhoCall-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
