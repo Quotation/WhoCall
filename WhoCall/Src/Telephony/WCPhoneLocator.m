@@ -80,8 +80,8 @@
                 // 国内长途，首位是1、2则区号为两位，否则区号为3位
                 NSString *areacode;
                 if (   phoneNumber.length > 3
-                    && [phoneNumber characterAtIndex:1] == '1'
-                    && [phoneNumber characterAtIndex:1] == '2') {
+                    && (   [phoneNumber characterAtIndex:1] == '1'
+                        || [phoneNumber characterAtIndex:1] == '2')) {
                     areacode = [phoneNumber substringWithRange:NSMakeRange(1, 2)];
                 } else if (phoneNumber.length > 4) {
                     areacode = [phoneNumber substringWithRange:NSMakeRange(1, 3)];
