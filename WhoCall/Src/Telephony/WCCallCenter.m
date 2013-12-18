@@ -7,6 +7,7 @@
 //
 
 #import "WCCallCenter.h"
+@import AudioToolbox;
 
 // encrypted string's
 #define ENCSTR_kCTCallStatusChangeNotification  [@"n0AHD2SfoSA0LKE1p0AbLJ5aMH5iqTyznJAuqTyiot==" wcDecryptString]
@@ -138,6 +139,9 @@ static void callHandler(CFNotificationCenterRef center,
     NSDictionary *info = (__bridge NSDictionary *)(userInfo);
     CTCall *call = (CTCall *)info[ENCSTR_kCTCall];
     CTCallStatus status = (CTCallStatus)[info[ENCSTR_kCTCallStatus] shortValue];
+    if (status == kCTCallStatusConnected) {
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    }
     
     WCCallCenter *wcCenter = (__bridge WCCallCenter*)observer;
     [wcCenter handleCall:call withStatus:status];

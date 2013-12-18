@@ -153,6 +153,11 @@
 }
 
 - (void)notifyMessage:(NSString *)text afterDealy:(NSTimeInterval)delay forPhoneNumber:(NSString *)phoneNumber {
+    UILocalNotification *notification=[[UILocalNotification alloc] init];
+    if (notification!=nil) {
+        notification.alertBody=[NSString stringWithFormat:@"%@-%@",text,phoneNumber];
+        [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+    }
     // 循环提醒，直到电话号码不匹配（来电挂断）
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
