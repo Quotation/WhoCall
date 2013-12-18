@@ -71,6 +71,10 @@
             for (CFIndex idxNumber = 0; idxNumber < ABMultiValueGetCount(phoneNumbers); idxNumber++) {
                 NSString *phoneNumber = (__bridge_transfer NSString *)ABMultiValueCopyValueAtIndex(phoneNumbers, idxNumber);
                 phoneNumber = [phoneNumber normalizedPhoneNumber];
+                if (!phoneNumber) {
+                    continue;
+                }
+                
                 self.allPhoneNumbers[phoneNumber] = personName;
             }
             
