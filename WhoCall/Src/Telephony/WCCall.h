@@ -11,6 +11,7 @@
 
 // private API
 typedef NS_ENUM(short, CTCallStatus) {
+    kCTCallStatusConnected = 1,
     kCTCallStatusCallIn = 4,
     kCTCallStatusHungUp = 5
 };

@@ -7,6 +7,7 @@
 //
 
 @import AVFoundation;
+@import AudioToolbox;
 #import "WCCallInspector.h"
 #import "WCCallCenter.h"
 #import "WCAddressBook.h"
@@ -68,6 +69,12 @@
 }
 
 - (void)handleCallEvent:(WCCall *)call {
+    // 接通后震动一下（防辐射，你懂的）
+    if (call.callStatus == kCTCallStatusConnected) {
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        return;
+    }
+
     // 来电挂断就停止播报
     if (call.callStatus != kCTCallStatusCallIn) {
         self.incomingPhoneNumber = nil;
