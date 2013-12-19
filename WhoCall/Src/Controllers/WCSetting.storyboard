@@ -1,9 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="IW0-BI-MGU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="9mU-nx-Cza">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="UOa-gh-XHf">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="9mU-nx-Cza" sceneMemberID="viewController">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="LgA-Lu-GA8">
+                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="1KH-Av-Pz4">
+                        <rect key="frame" x="0.0" y="416" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="IW0-BI-MGU" kind="relationship" relationship="rootViewController" id="nAC-0e-Joq"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qzs-TT-rMO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-503" y="-62"/>
+        </scene>
         <!--Setting View Controller - 来电语音提醒-->
         <scene sceneID="Nlj-Bb-Ikp">
             <objects>
@@ -159,6 +181,9 @@ Cg
                                                 <constraint firstAttribute="centerY" secondItem="1XM-kf-8Or" secondAttribute="centerY" id="VC6-ef-peZ"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="NiY-Fn-IOZ" kind="push" id="x8E-EC-SDo"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -168,10 +193,12 @@ Cg
                             <outlet property="delegate" destination="IW0-BI-MGU" id="mES-YI-2Vw"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="来电语音提醒" id="Ido-Px-uvq">
+                        <barButtonItem key="backBarButtonItem" title=" " id="FZK-Yp-Vye"/>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="cellOtherApps" destination="Kev-8G-EtY" id="OAQ-lm-dAo"/>
                         <outlet property="switchContact" destination="ANs-Rr-eCI" id="Lyg-PX-DGP"/>
                         <outlet property="switchLiar" destination="QJC-Y7-LTP" id="XBX-YH-VR8"/>
                         <outlet property="switchLocation" destination="BTD-YR-eAf" id="5pM-ve-h9B"/>
@@ -236,6 +263,7 @@ Cg
                             <outlet property="delegate" destination="NiY-Fn-IOZ" id="0jS-8n-NDn"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Zerone Studio 作品" id="Ybz-K8-JAV"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
@@ -245,7 +273,7 @@ Cg
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R8h-Rj-KUk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="381" y="-66"/>
+            <point key="canvasLocation" x="383" y="-62"/>
         </scene>
     </scenes>
     <resources>

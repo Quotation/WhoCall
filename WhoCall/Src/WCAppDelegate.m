@@ -34,18 +34,6 @@
     // call inspector
     [[WCCallInspector sharedInspector] startInspect];
     
-    // UI
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
-    UIStoryboard *settingStoryboard = [UIStoryboard storyboardWithName:@"WCSetting" bundle:nil];
-    // use storyboard for static content tableview
-    WCSettingViewController *mainController = [settingStoryboard instantiateViewControllerWithIdentifier:@"Setting"];
-    UINavigationController *rootNav = [[UINavigationController alloc] initWithRootViewController:mainController];
-    
-    self.window.rootViewController = rootNav;
-    
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
     return YES;
 }
 

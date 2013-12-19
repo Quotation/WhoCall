@@ -28,6 +28,8 @@
 	<array>
 		<string>audio</string>
 	</array>
+	<key>UIMainStoryboardFile</key>
+	<string>WCSetting</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>telephony</string>

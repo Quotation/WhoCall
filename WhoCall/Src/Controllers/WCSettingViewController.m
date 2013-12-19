@@ -31,11 +31,11 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.backBarButtonItem =
-        [[UIBarButtonItem alloc] initWithTitle:@""
-                                         style:UIBarButtonItemStylePlain
-                                        target:nil
-                                        action:nil];
+//    self.navigationItem.backBarButtonItem =
+//        [[UIBarButtonItem alloc] initWithTitle:@""
+//                                         style:UIBarButtonItemStylePlain
+//                                        target:nil
+//                                        action:nil];
     
     WCCallInspector *inspector = [WCCallInspector sharedInspector];
     self.switchLiar.on = inspector.handleLiarPhone;
@@ -56,15 +56,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    
-    if (cell == self.cellOtherApps) {
-        UIStoryboard *settingStoryboard = [UIStoryboard storyboardWithName:@"WCSetting" bundle:nil];
-        WCSettingViewController *appsController = [settingStoryboard instantiateViewControllerWithIdentifier:@"OtherApps"];
-        [self.navigationController pushViewController:appsController animated:YES];
-    }
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (IBAction)onSettingValueChanged:(UISwitch *)sender

@@ -10,7 +10,6 @@
 
 @interface WCSettingViewController : UITableViewController
 
-@property (weak, nonatomic) IBOutlet UITableViewCell *cellOtherApps;
 @property (weak, nonatomic) IBOutlet UISwitch *switchLiar;
 @property (weak, nonatomic) IBOutlet UISwitch *switchLocation;
 @property (weak, nonatomic) IBOutlet UISwitch *switchContact;
