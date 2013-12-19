@@ -21,4 +21,6 @@ typedef NS_ENUM(short, CTCallStatus) {
 @property (nonatomic, assign) CTCallStatus callStatus;
 @property (nonatomic, copy) NSString *phoneNumber;
 
+@property (nonatomic, retain) CTCall *internalCall;
+
 @end

@@ -16,10 +16,14 @@
 #define ENCSTR_CTTelephonyCenterAddObserver     [@"D1EHMJkypTuioayQMJ50MKWOMTECLaAypaMypt==" wcDecryptString]
 #define ENCSTR_CTTelephonyCenterRemoveObserver  [@"D1EHMJkypTuioayQMJ50MKWFMJ1iqzICLaAypaMypt==" wcDecryptString]
 #define ENCSTR_CTCallCopyAddress                [@"D1EQLJkfD29jrHSxMUWyp3Z=" wcDecryptString]
+#define ENCSTR_CTCallDisconnect                 [@"D1EQLJkfETymL29hozIwqN==" wcDecryptString]
 
 // private API
 //extern NSString *CTCallCopyAddress(void*, CTCall *);
 typedef NSString *(*PF_CTCallCopyAddress)(void*, CTCall *);
+
+//extern void CTCallDisconnect(CTCall *);
+typedef void (*PF_CTCallDisconnect)(CTCall *);
 
 //extern CFNotificationCenterRef CTTelephonyCenterGetDefault();
 typedef CFNotificationCenterRef (*PF_CTTelephonyCenterGetDefault)();
@@ -121,6 +125,7 @@ typedef void (*PF_CTTelephonyCenterRemoveObserver)(CFNotificationCenterRef cente
     WCCall *wcCall = [[WCCall alloc] init];
     wcCall.phoneNumber = CopyAddress(NULL, call);
     wcCall.callStatus = status;
+    wcCall.internalCall = call;
     
     self.callEventHandler(wcCall);
 }
@@ -141,6 +146,23 @@ static void callHandler(CFNotificationCenterRef center,
     
     WCCallCenter *wcCenter = (__bridge WCCallCenter*)observer;
     [wcCenter handleCall:call withStatus:status];
+}
+
+- (void)disconnectCall:(WCCall *)call
+{
+    static PF_CTCallDisconnect Disconnect;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        Disconnect = [WCDL loadSymbol:ENCSTR_CTCallDisconnect];
+    });
+    
+    CTCall *ctCall = call.internalCall;
+    if (!ctCall) {
+        return;
+    }
+    
+    Disconnect(ctCall);
 }
 
 @end

@@ -36,15 +36,17 @@
 }
 
 - (void)checkLiarNumber:(NSString *)phoneNumber
-         withCompletion:(void(^)(NSString *liarInfo))completion
+         withCompletion:(void(^)(WCLiarPhoneType liarType, NSString *liarDetail))completion
 {
     // 测试：
 //    phoneNumber = @"01053202011";   // 广告
 //    phoneNumber = @"15306537056";   // 快递
     
-    NSString *cachedInfo = [self.cache objectForKey:phoneNumber];
+    NSDictionary *cachedInfo = [self.cache objectForKey:phoneNumber];
     if (cachedInfo && completion) {
-        completion(cachedInfo);
+        WCLiarPhoneType type = (WCLiarPhoneType)[cachedInfo[@"type"] integerValue];
+        NSString *info = cachedInfo[@"info"];
+        completion(type, info);
         return;
     }
     
@@ -71,8 +73,9 @@
         NSRange rngLiar = [liarNodeRegex rangeOfFirstMatchInString:searchResult
                                                            options:0
                                                              range:NSMakeRange(0, searchResult.length)];
-        NSString *detail = @"";
-        
+        NSString *liarDetail = @"";
+        WCLiarPhoneType liarType = kWCLiarPhoneNone;
+
         if (rngLiar.location != NSNotFound) {
             NSString *liarInfo = [searchResult substringWithRange:rngLiar];
             
@@ -84,55 +87,39 @@
                                                        options:NSLiteralSearch
                                                          range:NSMakeRange(begin, liarInfo.length - begin)];
                 if (rngEndStrong.location != NSNotFound) {
-                    detail = [liarInfo substringWithRange:NSMakeRange(begin, rngEndStrong.location - begin)];
-                    detail = [detail stringByTrimmingCharactersInSet:[NSCharacterSet punctuationCharacterSet]];
+                    liarDetail = [liarInfo substringWithRange:NSMakeRange(begin, rngEndStrong.location - begin)];
+                    liarDetail = [liarDetail stringByTrimmingCharactersInSet:[NSCharacterSet punctuationCharacterSet]];
                 }
             }
             
-            // 没有具体信息再判断个大概的类型（旧代码，其实没啥用了）
-            if (detail.length == 0) {
-                NSDictionary *keywords = @{@"广告"    : @(kWCLiarPhoneAd),
-                                           @"推销"    : @(kWCLiarPhoneAd),
-                                           @"响一声"   : @(kWCLiarPhoneCheat),
-                                           @"欺诈"    : @(kWCLiarPhoneCheat),
-                                           @"快递"    : @(kWCLiarPhonePostman)};
-                
-                WCLiarPhoneType type = kWCLiarPhoneOther;
-                for (NSString *key in keywords.keyEnumerator) {
-                    if ([liarInfo rangeOfString:key].location != NSNotFound) {
-                        type = [keywords[key] integerValue];
-                        break;
-                    }
-                }
-                
-                switch (type) {
-                    case kWCLiarPhoneNone:
-                        break;
-                    case kWCLiarPhoneAd:
-                        detail = @"广告推销";
-                        break;
-                    case kWCLiarPhoneCheat:
-                        detail = @"欺诈电话";
-                        break;
-                    case kWCLiarPhonePostman:
-                        detail = @"快递员";
-                        break;
-                    default:
-                        detail = @"疑似骚扰电话";
-                        break;
+            // 判断类型
+            NSDictionary *keywords = @{@"广告"    : @(kWCLiarPhoneAd),
+                                       @"推销"    : @(kWCLiarPhoneAd),
+                                       @"响一声"   : @(kWCLiarPhoneCheat),
+                                       @"欺诈"    : @(kWCLiarPhoneCheat),
+                                       @"快递"    : @(kWCLiarPhonePostman)};
+            
+            liarType = kWCLiarPhoneOther;
+            for (NSString *key in keywords.keyEnumerator) {
+                if ([liarInfo rangeOfString:key].location != NSNotFound) {
+                    liarType = [keywords[key] integerValue];
+                    break;
                 }
             }
         }
         
-        if (!detail) {
-            detail = @"";
+        
+        if (liarDetail.length == 0) {
+            liarType = kWCLiarPhoneNone;
+            liarDetail = @"";
         }
         
-        [self.cache setObject:detail forKey:phoneNumber];
+        [self.cache setObject:@{@"type": @(liarType), @"info": liarDetail}
+                       forKey:phoneNumber];
         
         if (completion) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                completion(detail);
+                completion(liarType, liarDetail);
             });
         }
     });

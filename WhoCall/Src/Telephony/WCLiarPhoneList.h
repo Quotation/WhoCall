@@ -22,6 +22,6 @@ typedef NS_ENUM(NSInteger, WCLiarPhoneType) {
 
 // 检查是否为骚扰电话以及具体类型，`liarInfo`可能为空字符串表示非骚扰电话
 - (void)checkLiarNumber:(NSString *)phoneNumber
-         withCompletion:(void(^)(NSString *liarInfo))completion;
+         withCompletion:(void(^)(WCLiarPhoneType liarType, NSString *liarDetail))completion;
 
 @end

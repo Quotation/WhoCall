@@ -11,6 +11,10 @@
 
 @interface WCCallCenter : NSObject
 
+// 监听来电事件
 @property (nonatomic, copy) void (^callEventHandler)(WCCall *call);
+
+// 挂断电话
+- (void)disconnectCall:(WCCall *)call;
 
 @end

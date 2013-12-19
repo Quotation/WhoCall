@@ -15,3 +15,11 @@
     #import <Foundation/Foundation.h>
     #import "WCUtil.h"
 #endif
+
+#pragma mark - System Version
+
+#define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+
+#define IS_IOS6_OR_LATER    SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0")
+#define IS_IOS7_OR_LATER    SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")

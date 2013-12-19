@@ -48,6 +48,7 @@
 		4662170A183C4AFD008DC8FA /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 46621704183C4AFD008DC8FA /* FMResultSet.m */; };
 		4662170C183C521F008DC8FA /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4662170B183C521F008DC8FA /* libsqlite3.dylib */; };
 		46621716183D11A1008DC8FA /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46621715183D11A1008DC8FA /* libz.dylib */; };
+		46D31E3A1863398900865376 /* WCHangupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D31E391863398900865376 /* WCHangupViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -114,6 +115,8 @@
 		46621704183C4AFD008DC8FA /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		4662170B183C521F008DC8FA /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		46621715183D11A1008DC8FA /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		46D31E381863398900865376 /* WCHangupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHangupViewController.h; sourceTree = "<group>"; };
+		46D31E391863398900865376 /* WCHangupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHangupViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,6 +244,8 @@
 				466216881838DEFC008DC8FA /* WCSetting.storyboard */,
 				466216811838B767008DC8FA /* WCSettingViewController.h */,
 				466216821838B767008DC8FA /* WCSettingViewController.m */,
+				46D31E381863398900865376 /* WCHangupViewController.h */,
+				46D31E391863398900865376 /* WCHangupViewController.m */,
 				466216D7183A46B4008DC8FA /* WCOtherAppsViewController.h */,
 				466216D8183A46B4008DC8FA /* WCOtherAppsViewController.m */,
 			);
@@ -388,6 +393,7 @@
 				4662170A183C4AFD008DC8FA /* FMResultSet.m in Sources */,
 				466216F8183C49AF008DC8FA /* WCPhoneLocator.m in Sources */,
 				466216E9183BA29E008DC8FA /* WCLiarPhoneList.m in Sources */,
+				46D31E3A1863398900865376 /* WCHangupViewController.m in Sources */,
 				466216E0183A6319008DC8FA /* WCCall.m in Sources */,
 				461320871838A6A7006634C7 /* main.m in Sources */,
 				466216EC183BA2D2008DC8FA /* WCUtil.m in Sources */,

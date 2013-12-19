@@ -19,6 +19,8 @@
 #define kSettingKeyLiarPhone        @"com.wangxl.WhoCall.HandleLiarPhone"
 #define kSettingKeyPhoneLocation    @"com.wangxl.WhoCall.HandlePhoneLocation"
 #define kSettingKeyContactName      @"com.wangxl.WhoCall.HandleContactName"
+#define kSettingKeyHangupAdsCall    @"com.wangxl.WhoCall.HangupAdsCall"
+#define kSettingKeyHangupCheatCall  @"com.wangxl.WhoCall.HangupCheatCall"
 
 
 @interface WCCallInspector ()
@@ -51,6 +53,8 @@
     return self;
 }
 
+#pragma mark - Call Inspection
+
 - (void)startInspect
 {
     if (self.callCenter) {
@@ -68,10 +72,11 @@
     self.callCenter = nil;
 }
 
-- (void)handleCallEvent:(WCCall *)call {
+- (void)handleCallEvent:(WCCall *)call
+{
     // 接通后震动一下（防辐射，你懂的）
     if (call.callStatus == kCTCallStatusConnected) {
-        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        [self vibrateDevice];
         return;
     }
 
@@ -110,31 +115,55 @@
     
     // 欺诈电话联网查，等待查询结束才能知道要不要提示地点
     if (self.handleLiarPhone && !isContact) {
-        [[WCLiarPhoneList sharedList] checkLiarNumber:number withCompletion:^(NSString *liarInfo) {
-            if (liarInfo.length != 0) {
-                [self notifyMessage:liarInfo forPhoneNumber:number];
-            } else {
-                checkPhoneLocation();
-            }
-        }];
+        [[WCLiarPhoneList sharedList]
+         checkLiarNumber:number
+         withCompletion:^(WCLiarPhoneType liarType, NSString *liarDetail) {
+             if (liarType != kWCLiarPhoneNone) {
+                 if ([self shouldHangupLiarType:liarType]) {
+                     [self.callCenter disconnectCall:call];
+                     
+                     NSString *msg = [NSString stringWithFormat:@"已挂断 %@ - %@", liarDetail, number];
+                     [self sendLocalNotification:msg];
+                 } else {
+                     [self notifyMessage:liarDetail forPhoneNumber:number];
+                 }
+             } else {
+                 checkPhoneLocation();
+             }
+         }];
     } else {
         checkPhoneLocation();
     }
 }
 
+- (BOOL)shouldHangupLiarType:(WCLiarPhoneType)liarType
+{
+    if (   (self.hangupAdsCall && liarType == kWCLiarPhoneAd)
+        || (self.hangupCheatCall && liarType == kWCLiarPhoneCheat)) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+#pragma mark - Settings
+
 - (void)loadSettings
 {
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    if ([def objectForKey:kSettingKeyLiarPhone]) {
-        self.handleLiarPhone = [def boolForKey:kSettingKeyLiarPhone];
-        self.handlePhoneLocation = [def boolForKey:kSettingKeyPhoneLocation];
-        self.handleContactName = [def boolForKey:kSettingKeyContactName];
-    } else {
-        // 第一次初始化
-        self.handleLiarPhone = YES;
-        self.handlePhoneLocation = YES;
-        self.handleContactName = NO;
-    }
+    [def registerDefaults:@{
+                            kSettingKeyLiarPhone        : @(YES),
+                            kSettingKeyPhoneLocation    : @(YES),
+                            kSettingKeyContactName      : @(NO),
+                            kSettingKeyHangupAdsCall    : @(NO),
+                            kSettingKeyHangupCheatCall  : @(NO),
+                            }];
+    
+    self.handleLiarPhone = [def boolForKey:kSettingKeyLiarPhone];
+    self.handlePhoneLocation = [def boolForKey:kSettingKeyPhoneLocation];
+    self.handleContactName = [def boolForKey:kSettingKeyContactName];
+    self.hangupAdsCall = [def boolForKey:kSettingKeyHangupAdsCall];
+    self.hangupCheatCall = [def boolForKey:kSettingKeyHangupCheatCall];
 }
 
 - (void)saveSettings
@@ -143,10 +172,16 @@
     [def setBool:self.handleLiarPhone forKey:kSettingKeyLiarPhone];
     [def setBool:self.handlePhoneLocation forKey:kSettingKeyPhoneLocation];
     [def setBool:self.handleContactName forKey:kSettingKeyContactName];
+    [def setBool:self.hangupAdsCall forKey:kSettingKeyHangupAdsCall];
+    [def setBool:self.hangupCheatCall forKey:kSettingKeyHangupCheatCall];
+    
     [def synchronize];
 }
 
-- (void)notifyMessage:(NSString *)text forPhoneNumber:(NSString *)phoneNumber {
+#pragma mark - Notify Users
+
+- (void)notifyMessage:(NSString *)text forPhoneNumber:(NSString *)phoneNumber
+{
     // delay一下保证铃声已经响起，这样声音才不会被打断
     double delayInSeconds = 2.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -159,7 +194,8 @@
     });
 }
 
-- (void)notifyMessage:(NSString *)text afterDealy:(NSTimeInterval)delay forPhoneNumber:(NSString *)phoneNumber {
+- (void)notifyMessage:(NSString *)text afterDealy:(NSTimeInterval)delay forPhoneNumber:(NSString *)phoneNumber
+{
     // 循环提醒，直到电话号码不匹配（来电挂断）
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
@@ -170,7 +206,8 @@
     });
 }
 
-- (void)speakText:(NSString *)text {
+- (void)speakText:(NSString *)text
+{
     if (text.length == 0) {
         return;
     }
@@ -187,10 +224,23 @@
     [self.synthesizer speakUtterance:utterance];
 }
 
-- (void)stopSpeakText {
+- (void)stopSpeakText
+{
     if (self.synthesizer && self.synthesizer.isSpeaking) {
         [self.synthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
     }
+}
+
+- (void)sendLocalNotification:(NSString *)message
+{
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.alertBody = message;
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+}
+
+- (void)vibrateDevice
+{
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 }
 
 @end

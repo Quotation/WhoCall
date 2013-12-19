@@ -31,12 +31,6 @@
 {
     [super viewDidLoad];
     
-//    self.navigationItem.backBarButtonItem =
-//        [[UIBarButtonItem alloc] initWithTitle:@""
-//                                         style:UIBarButtonItemStylePlain
-//                                        target:nil
-//                                        action:nil];
-    
     WCCallInspector *inspector = [WCCallInspector sharedInspector];
     self.switchLiar.on = inspector.handleLiarPhone;
     self.switchLocation.on = inspector.handlePhoneLocation;
