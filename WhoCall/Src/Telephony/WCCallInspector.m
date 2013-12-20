@@ -77,10 +77,9 @@
     // 接通后震动一下（防辐射，你懂的）
     if (call.callStatus == kCTCallStatusConnected) {
         [self vibrateDevice];
-        return;
     }
 
-    // 来电挂断就停止播报
+    // 来电挂断或接通就停止播报
     if (call.callStatus != kCTCallStatusCallIn) {
         self.incomingPhoneNumber = nil;
         [self stopSpeakText];
